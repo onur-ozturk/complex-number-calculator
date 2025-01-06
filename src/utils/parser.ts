@@ -8,6 +8,20 @@ export const parseComplexNumber = (input: string): ComplexNumber => {
     return createPolar(magnitude, angle);
   }
   
+  // Sadece i veya sayı*i formatı kontrolü (4i, -4i gibi)
+  if (input === 'i') {
+    return createCartesian(0, 1);
+  }
+  if (input === '-i') {
+    return createCartesian(0, -1);
+  }
+  if (input.endsWith('i')) {
+    // Başındaki - işareti dahil sayıyı al
+    const num = input.slice(0, -1);
+    // Boş string, sadece - işareti veya sayı olabilir
+    return createCartesian(0, num === '' ? 1 : num === '-' ? -1 : parseFloat(num));
+  }
+  
   // Kartezyen form parse etme (3+5i veya 3-5i)
   const parts = input.match(/^([-+]?\d*\.?\d*)?(?:([-+])?(\d*\.?\d*)?i)?$/);
   if (!parts) throw new Error('Geçersiz kompleks sayı formatı');

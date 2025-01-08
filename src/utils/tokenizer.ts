@@ -5,7 +5,7 @@ type Token = {
 
 export const tokenize = (input: string): Token[] => {
   const tokens: Token[] = [];
-  const regex = /(\d*\.?\d+∠\d+|\d*\.?\d+[+-]\d*\.?\d+i|\d*\.?\d+i|\d*\.?\d+|[+\-*/()])/g;
+  const regex = /(-?\d*\.?\d+∠-?\d*\.?\d*|-?\d*\.?\d*i|-?\d*\.?\d+|-?i|[+\-*/()])/g;
   
   let match;
   while ((match = regex.exec(input)) !== null) {
